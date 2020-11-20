@@ -16,7 +16,7 @@ class EmployeePayrollData{
 
     get name(){return this._name;}
     set name(name){
-        let nameRegex = RegExp();
+        let nameRegex = RegExp("^[A-Z]{1}[a-z]{2,}$");
         if (nameRegex.test(name))
             this._name = name;
         else throw "Name is incorrect!";
@@ -49,7 +49,11 @@ class EmployeePayrollData{
 
     get startDate(){return this._startDate;}
     set startDate(startDate){
-        this._startDate = startDate;
+        let days = 30;
+        var todayDate = new Date();
+        var lastDate = new Date(todayDate.getTime() - (days * 24 * 60 * 60 * 1000));
+        if (startDate>=lastDate && startDate<=todayDate) this._startDate = startDate;
+        else throw "Enter valid date!";
     }
 
     toString(){
