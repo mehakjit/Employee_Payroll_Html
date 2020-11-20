@@ -66,19 +66,24 @@ body{
 }
 
 .row-content{
-    display: flex;
-    flex-direction: row;
+    display: flex; 
+    flex-direction: row; 
     margin-bottom: 10px;
     align-items: center;
     border: 0px solid green;
     flex-wrap: wrap;
 }
 
-.label{
+/* .label{
     min-width: 80px;
 }
 
 label{
+    padding: 12px 12px 12px 0;
+    display: inline-block;
+} */
+.row-content > label{
+    min-width: 140px;
     padding: 12px 12px 12px 0;
     display: inline-block;
 }
@@ -88,6 +93,7 @@ label{
     color: #42515f;
     opacity: 1;
     font-family: Roboto;
+    padding-left: 10px;
 }
 
 .input{
@@ -99,7 +105,16 @@ label{
 }
 .img{
     padding-right: 20px;
+    border-radius: 100%;
 }
 .select{
+    align-items: center;
+}
+.bear{
+    display: flex;
+    align-items: center;
+}
+.salary-range{
+    display: flex;
     align-items: center;
 }
