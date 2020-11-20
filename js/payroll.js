@@ -40,6 +40,7 @@ window.addEventListener('DOMContentLoaded', (event)=>{
 const save = ()=>{
     try{
         let employeePayrollData = createEmployeePayroll();
+        createAndUpdateStorage(employeePayrollData);
     }catch(e){
         return ;
     }
@@ -60,11 +61,28 @@ const  createEmployeePayroll = ()=>{
     employeePayrollData.salary = getInputValueById('#salary');
     employeePayrollData.note = getInputValueById('#notes');
 
-    let date = getInputValueById('#day')+" "+getInputValueById('#month')+" "+
-    getInputValueById('#year');
-    employeePayrollData.date = Date.parse(date);
+    // let date = getInputValueById('#day')+" "+getInputValueById('#month')+" "+
+    // getInputValueById('#year');
+
+    var day = document.getElementById("day").value;
+    var month = document.getElementById("month").value;
+    var year = document.getElementById("year").value;
+    var date = new Date(parseInt(year), parseInt(month) - 1, parseInt(day));
+
+    employeePayrollData.startDate = date;
     alert(employeePayrollData.toString());
     return employeePayrollData;
+}
+
+function createAndUpdateStorage(employeePayrollData){
+    let employeePayrollList = JSON.parse(localStorage.getItem("EmployeePayrollList"));
+    if(employeePayrollList != undefined){
+        employeePayrollList.push(employeePayrollData);
+    }else{
+        employeePayrollList = [employeePayrollData];
+    }
+    alert(employeePayrollList.toString());
+    localStorage.setItem("EmployeePayrollList", JSON.stringify(employeePayrollList));
 }
 
 const getSelectedValues = (propertyValue)=>{
@@ -85,19 +103,3 @@ const getInputElementValue = (id)=>{
     let value = document.getElementById(id).value;
     return value;
 }
-
-// function save(){
-//     var name= document.getElementById("name").value;
-//     var picture = document.querySelector('input[name = profile]:checked').value;
-//     var gender = document.querySelector('input[name = gender]:checked').value;
-//     var department =document.querySelector('input[name = department]:checked').value;
-//     var salary = document.getElementById("salary").value;
-//     var day = document.getElementById("day").value;
-//     var month = document.getElementById("month").value;
-//     var year = document.getElementById("year").value;
-//     var note = document.getElementById("notes").value;
-//     var startDate = new Date(parseInt(year), parseInt(month) - 1, parseInt(day));
-
-//    const employeePayrollData = new EmployeePayrollData(name, picture, gender, department, salary, startDate, note);
-//    alert("Entered data is saved!\n" + employeePayrollData.toString());
-//   } 
