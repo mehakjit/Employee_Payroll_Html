@@ -1,13 +1,13 @@
 class EmployeePayrollData{
-    constructor(...params){
-        this.name = params[0];
-        this.profilePic = params[1];
-        this.gender = params[2];
-        this.department = params[3];
-        this.salary = params[4];
-        this.startDate = params[5];
-        this.note = params[6];
-    }
+    // constructor(...params){
+    //     this.name = params[0];
+    //     this.profilePic = params[1];
+    //     this.gender = params[2];
+    //     this.department = params[3];
+    //     this.salary = params[4];
+    //     this.startDate = params[5];
+    //     this.note = params[6];
+    // }
 
     get id(){return this._id;}
     set id(id){
@@ -49,11 +49,7 @@ class EmployeePayrollData{
 
     get startDate(){return this._startDate;}
     set startDate(startDate){
-        let days = 30;
-        var todayDate = new Date();
-        var lastDate = new Date(todayDate.getTime() - (days * 24 * 60 * 60 * 1000));
-        if (startDate>=lastDate && startDate<=todayDate) this._startDate = startDate;
-        else throw "Enter valid date!";
+        this._startDate = startDate;
     }
 
     toString(){
