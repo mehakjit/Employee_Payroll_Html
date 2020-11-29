@@ -1,3 +1,6 @@
+let isUpdate = false;
+let employeePayrollObj = {};
+
 window.addEventListener('DOMContentLoaded', (event)=>{
     const name = document.querySelector("#name");
     const textError = document.querySelector(".text-error");
@@ -34,7 +37,7 @@ window.addEventListener('DOMContentLoaded', (event)=>{
             dateError.textContent = e;
         }
     });
-    
+    checkForUpdate();
 });
 
 const save = ()=>{
@@ -85,6 +88,14 @@ function createAndUpdateStorage(employeePayrollData){
     localStorage.setItem("EmployeePayrollList", JSON.stringify(employeePayrollList));
 }
 
+const checkForUpdate = () => {
+    const employeePayrollJson = localStorage.getItem("editEmp");
+    isUpdate = employeePayrollJson ? true : false;
+    if(!isUpdate) return;
+    employeePayrollObj = JSON.parse(employeePayrollJson);
+    setForm();
+};
+
 const getSelectedValues = (propertyValue)=>{
     let allItems = document.querySelectorAll(propertyValue);
     let selItems =[];
@@ -117,6 +128,21 @@ const resetForm = ()=>{
     setValue('#year', '2020');
 }
 
+const setForm = () => {
+    setValue("#name", employeePayrollObj._name);
+    setSelectedValues("[name=photo]", employeePayrollObj._photo);
+    setSelectedValues("[name=gender]", employeePayrollObj._gender);
+    setSelectedValues("[name=department]", employeePayrollObj._department);
+    setValue("#salary", employeePayrollObj._salary);
+    setTextValue(".salary-output", employeePayrollObj._salary);
+    setValue("#notes", employeePayrollObj._note);
+    let date = stringifyDate(employeePayrollObj._startDate).split(" ");
+    let month = new Date(date).getMonth() + 1;
+    setValue("#day", date[0]);
+    setValue("#month", month);
+    setValue("#year", date[2]);
+};
+
 const unsetSelectedValues =(propertyValue) =>{
     let allItems = document.querySelectorAll(propertyValue);
     allItems.forEach(item=>{
@@ -128,6 +154,16 @@ const setTextValue = (id, value)=>{
     const element  = document.querySelector(id);
     element.textContent = value;
 }
+
+const setSelectedValues = (propertyValue, value) => {
+    let allItems = document.querySelectorAll(propertyValue);
+    allItems.forEach(item => {
+       if(Array.isArray(value)){
+         if(value.includes(item.value)) item.checked = true;
+       }
+       else if(item.value == value) item.checked = true;
+    });
+};
 
 const setValue = (id, value)=>{
     const element  = document.querySelector(id);

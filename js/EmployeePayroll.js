@@ -22,9 +22,9 @@ class EmployeePayrollData{
         else throw "Name is incorrect!";
         }
 
-    get profilePic(){return this._profilePic;}
+    get profilePic(){return this._photo;}
     set profilePic(profilePic){
-        this._profilePic = profilePic;
+        this._photo = profilePic;
     }
 
     get gender(){return this._gender;}
@@ -49,7 +49,8 @@ class EmployeePayrollData{
 
     get startDate(){return this._startDate;}
     set startDate(startDate){
-        this._startDate = startDate;
+        if(startDate <= new Date())this._startDate = startDate;
+        else throw "Enter valid date";
     }
 
     toString(){
